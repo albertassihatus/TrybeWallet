@@ -17,7 +17,7 @@ class Login extends React.Component {
     const { history, setUserData: actionUserData } = this.props;
     // const { history } = this.props;
     actionUserData(this.state);
-    history.push('/wallet');
+    history.push('/carteira');
   };
 
   handleChange = ({ target }) => {
@@ -26,12 +26,12 @@ class Login extends React.Component {
   };
 
   validateForm = () => {
-    const { password } = this.state;
+    const { email, password } = this.state;
 
     const minLength = 6;
     const anyInfo = password.length >= minLength;
 
-    if (anyInfo) {
+    if (anyInfo && email.includes('@') && email.endsWith('.com')) {
       return false;
     }
     return true;
@@ -80,6 +80,9 @@ class Login extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   setUserData: (userData) => dispatch(setUserData(userData)),
+
+  // setUserData: (state) => dispatch(setUserData(state)),
+// });
 });
 
 Login.propTypes = {
