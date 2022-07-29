@@ -9,13 +9,13 @@ const initialState = {
 
 function walletReducer(state = initialState, action) {
   // desestruturar o state da action tbm é uma possibilidade
-  const { wallet } = action;
+  // const { wallet } = action;
 
   switch (action.type) {
-  case 'SET_WALLET_DATA':
+  case 'COIN_PRICE':
     return {
       ...state,
-      wallet,
+      currencies: action.currencies,
     };
   default:
     return state;

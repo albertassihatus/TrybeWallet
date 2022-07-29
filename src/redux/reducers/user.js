@@ -7,7 +7,6 @@ const initialState = {
 function userReducer(state = initialState, action) {
   // desestruturar o state da action tbm é uma possibilidade
   const { userData } = action;
-  // console.log(userData);
 
   switch (action.type) {
   case 'SET_USER_DATA':
