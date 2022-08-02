@@ -9,7 +9,7 @@ export function setUserData(userData) {
 
 export function setWalletData(walletData) {
   return {
-    type: 'SET_WALLET_DATA',
+    type: 'ADD_EXPENSE',
     walletData,
   };
 }
@@ -30,3 +30,12 @@ export const fetchCoinPrice = () => (dispatch) => {
     .then((filterArrCoins) => filterArrCoins.filter((item) => item !== 'USDT'))
     .then((getCurrencies) => dispatch(coinPrice(getCurrencies)));
 };
+
+export function fetchExpenses(payload) {
+  return async (dispatch) => {
+    const request = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const data = await request.json();
+    payload.exchangeRates = data;
+    dispatch(setWalletData(payload));
+  };
+}

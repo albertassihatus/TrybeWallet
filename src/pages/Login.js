@@ -67,7 +67,7 @@ class Login extends React.Component {
 
         <button
           type="button"
-          onChange={ this.handleChange }
+          // onChange={ this.handleChange }
           onClick={ this.handleClickSubmit }
           disabled={ this.validateForm() }
         >

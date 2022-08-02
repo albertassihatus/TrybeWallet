@@ -1,4 +1,4 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
+// Esse  será responsável por tratar o todas as informações relacionadas as despesas
 
 const initialState = {
   currencies: [], // array de string
@@ -7,9 +7,9 @@ const initialState = {
   idToEdit: 0, // valor numérico que armazena o id da despesa que esta sendo
 };
 
-function walletReducer(state = initialState, action) {
+function wallet(state = initialState, action) {
   // desestruturar o state da action tbm é uma possibilidade
-  // const { wallet } = action;
+  // const { walletData } = action;
 
   switch (action.type) {
   case 'COIN_PRICE':
@@ -17,9 +17,17 @@ function walletReducer(state = initialState, action) {
       ...state,
       currencies: action.currencies,
     };
+  case 'ADD_EXPENSE':
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses, action.walletData,
+      ],
+    };
+
   default:
     return state;
   }
 }
 
-export default walletReducer;
+export default wallet;
