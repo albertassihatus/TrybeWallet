@@ -50,7 +50,6 @@ class WalletForm extends Component {
       tag } = this.state;
 
     const { coinOptions } = this.props;
-    console.log(coinOptions);
     return (
       <form>
         Valor:
