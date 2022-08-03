@@ -14,6 +14,13 @@ export function setWalletData(walletData) {
   };
 }
 
+export function deleteExpense(expenseId) {
+  return {
+    type: 'DELETE_EXPENSE',
+    expenseId,
+  };
+}
+
 export const FETCH_COIN_PRICE = 'FETCH_COIN_PRICE';
 
 export const COIN_PRICE = 'COIN_PRICE';

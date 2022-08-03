@@ -1,8 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { deleteExpense } from '../redux/actions';
 
 class Table extends Component {
+  removeExpense = (expenseId) => {
+    const { deleteExpense: actionDelete } = this.props;
+    actionDelete(expenseId);
+  };
+
   render() {
     const { tableExpenses } = this.props;
     return (
@@ -22,16 +28,20 @@ class Table extends Component {
             </tr>
           </thead>
           <tbody>
-            {tableExpenses.map((expense, index) => (
-              <tr key={ index }>
+            {tableExpenses.map((expense) => (
+              // tava com problema no cy por causa da key, fui no slack e achei essa solução:
+              // https://pt-br.reactjs.org/docs/lists-and-keys.html
+
+              <tr key={ expense.id }>
                 <td>{expense.description}</td>
                 <td>{expense.tag}</td>
                 <td>{expense.method}</td>
                 <td>{parseFloat(expense.value).toFixed(2)}</td>
                 <td>{expense.exchangeRates[expense.currency].name}</td>
                 <td>
-                  {parseFloat(expense.exchangeRates[expense.currency].ask)
-                    .toFixed(2)}
+                  {parseFloat(
+                    expense.exchangeRates[expense.currency].ask,
+                  ).toFixed(2)}
                 </td>
                 <td>
                   {parseFloat(
@@ -39,6 +49,15 @@ class Table extends Component {
                   ).toFixed(2)}
                 </td>
                 <td>Real</td>
+                <td>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ () => this.removeExpense(expense.id) }
+                  >
+                    Excluir
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -50,10 +69,16 @@ class Table extends Component {
 
 Table.propTypes = {
   tableExpenses: PropTypes.arrayOf.isRequired,
+  deleteExpense: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   tableExpenses: state.wallet.expenses,
+  // expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(Table);
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpense: (expenseId) => dispatch(deleteExpense(expenseId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

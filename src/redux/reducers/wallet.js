@@ -20,11 +20,15 @@ function wallet(state = initialState, action) {
   case 'ADD_EXPENSE':
     return {
       ...state,
-      expenses: [
-        ...state.expenses, action.walletData,
-      ],
+      expenses: [...state.expenses, action.walletData],
     };
-
+  case 'DELETE_EXPENSE':
+    return {
+      ...state,
+      expenses: [...state.expenses].filter(
+        (expense) => expense.id !== action.expenseId,
+      ),
+    };
   default:
     return state;
   }
