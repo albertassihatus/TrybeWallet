@@ -31,10 +31,12 @@ class Login extends React.Component {
     const minLength = 6;
     const anyInfo = password.length >= minLength;
 
-    if (anyInfo && email.includes('@') && email.endsWith('.com')) {
-      return false;
-    }
-    return true;
+    // if (anyInfo && email.includes('@') && email.endsWith('.com')) {
+    //   return false;
+    // }
+    // return true;
+
+    return (!(anyInfo && email.includes('@') && email.endsWith('.com')));
   };
 
   render() {
