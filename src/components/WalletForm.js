@@ -40,6 +40,7 @@ class WalletForm extends Component {
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value });
+    console.log(value);
   };
 
   render() {
@@ -77,6 +78,7 @@ class WalletForm extends Component {
             ))}
           </select>
         </label>
+
         Descrição:
         <input
           data-testid="description-input"
@@ -99,6 +101,7 @@ class WalletForm extends Component {
             <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
+
         <label htmlFor="tag">
           <select
             name="tag"

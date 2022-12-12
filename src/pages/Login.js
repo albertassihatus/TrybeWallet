@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { setUserData } from '../redux/actions';
+import './login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -31,51 +32,50 @@ class Login extends React.Component {
     const minLength = 6;
     const anyInfo = password.length >= minLength;
 
-    // if (anyInfo && email.includes('@') && email.endsWith('.com')) {
-    //   return false;
-    // }
-    // return true;
-
-    return (!(anyInfo && email.includes('@') && email.endsWith('.com')));
+    return !(anyInfo && email.includes('@') && email.endsWith('.com'));
   };
 
   render() {
     const { email, password } = this.state;
     return (
-      <form>
-        <label htmlFor="email">
-          <input
-            data-testid="email-input"
-            type="email"
-            name="email"
-            placeholder="E-mail"
-            onChange={ this.handleChange }
-            value={ email }
-            required
-          />
-        </label>
+      <main>
+        <form>
+          <h1>Sign In</h1>
+          <label htmlFor="email">
+            <input
+              data-testid="email-input"
+              type="email"
+              name="email"
+              placeholder="E-mail"
+              onChange={ this.handleChange }
+              value={ email }
+              required
+            />
+          </label>
 
-        <label htmlFor="password">
-          <input
-            data-testid="password-input"
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={ this.handleChange }
-            value={ password }
-            required
-          />
-        </label>
+          <label htmlFor="password">
+            <input
+              className="mb-3"
+              data-testid="password-input"
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={ this.handleChange }
+              value={ password }
+              required
+            />
+          </label>
 
-        <button
-          type="button"
-          // onChange={ this.handleChange }
-          onClick={ this.handleClickSubmit }
-          disabled={ this.validateForm() }
-        >
-          ENTRAR
-        </button>
-      </form>
+          <button
+            className="btn btn-success"
+            type="button"
+            onClick={ this.handleClickSubmit }
+            disabled={ this.validateForm() }
+          >
+            ENTRAR
+          </button>
+        </form>
+      </main>
     );
   }
 }
@@ -84,7 +84,7 @@ const mapDispatchToProps = (dispatch) => ({
   setUserData: (userData) => dispatch(setUserData(userData)),
 
   // setUserData: (state) => dispatch(setUserData(state)),
-// });
+  // });
 });
 
 Login.propTypes = {

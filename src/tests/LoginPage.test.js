@@ -4,30 +4,29 @@ import React from "react";
 import App from "../App";
 import { renderWithRouterAndRedux } from "./helpers/renderWith";
 
-describe("Login Page Test", () => {
-  it("Verifica se os inputs estão sendo carregados na tela", async () => {
+describe("testes do primeiro requisito", () => {
+  test("verifica se o login tem os inputs e botões", () => {
     renderWithRouterAndRedux(<App />);
-
-    expect(screen.getByPlaceholderText("E-mail")).toBeDefined();
-
-    expect(screen.getByPlaceholderText("Password")).toBeDefined();
-
-    expect(screen.getByRole("button", { name: /entrar/i })).toBeDefined();
+    expect(screen.getByTestId("email-input")).toBeInTheDocument();
+    expect(screen.getByTestId("password-input")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", {
+        name: /entrar/i,
+      })
+    ).toBeInTheDocument();
   });
-
-  it("Acessa a página Wallet ao habilitar e clicar no button", async () => {
-    const { history } = renderWithRouterAndRedux(<App />);
-
-    const btnLogin = screen.getByRole("button", { name: /entrar/i });
-    expect(btnLogin).toBeDisabled();
-
-    const emailValue = screen.getByTestId("email-input");
-    const passwordValue = screen.getByTestId("password-input");
-
-    userEvent.type(emailValue, "teste@teste.com");
-    userEvent.type(passwordValue, "123456");
-
-    
-    userEvent.click(btnLogin);
+  test("verifica se o botão habilita quando colocado email e senha e vai para a /carteira", () => {
+    const {history} = renderWithRouterAndRedux(<App />);
+    const buttonLogin = screen.getByRole("button", {
+      name: /entrar/i,
+    });
+    const emailInput = screen.getByTestId("email-input");
+    expect(buttonLogin).toBeDisabled();
+    const passwordInput = screen.getByTestId("password-input");
+    userEvent.type(emailInput, "teste@teste.com");
+    userEvent.type(passwordInput, "123456");
+    expect(buttonLogin).not.toBeDisabled();
+    userEvent.click(buttonLogin)
+    expect(history.location.pathname).toBe('/carteira')
   });
 });

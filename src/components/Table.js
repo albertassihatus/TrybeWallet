@@ -49,6 +49,7 @@ class Table extends Component {
                   ).toFixed(2)}
                 </td>
                 <td>Real</td>
+
                 <td>
                   <button
                     type="button"
